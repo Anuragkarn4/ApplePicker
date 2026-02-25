@@ -18,3 +18,12 @@ A simple game built in Unity (C#) where the player controls a basket to catch fa
 - Unity (3D Core Template)
 - C#
 - Unity UI (Canvas, Text, Buttons)
+
+## How to Play
+
+1. Clone the repository:
+git clone https://github.com/Anuragkarn4/ApplePicker
+
+2. Open the project in Unity.
+3. Open StartScreen.
+4. Press play.

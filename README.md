@@ -2,7 +2,7 @@
 
 A simple game built in Unity (C#) where the player controls a basket to catch falling apples while avoiding dangerous branches. It is ispired from Kaboom game.
 
-##Gameplay
+## Gameplay
 
  - Catch apples to earn points.
 
@@ -14,7 +14,7 @@ A simple game built in Unity (C#) where the player controls a basket to catch fa
 
  - Restart button appears after Game Over.
 
-##Built With
+## Built With
 - Unity (3D Core Template)
 - C#
 - Unity UI (Canvas, Text, Buttons)

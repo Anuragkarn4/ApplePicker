@@ -32,6 +32,10 @@ public class ApplePicker : MonoBehaviour
     }
 
     public void AppleMissed() {
+        if (basketList.Count <= 0) {
+            return;
+        }
+
         GameObject[] appleArray=GameObject.FindGameObjectsWithTag("Apple");
         foreach (GameObject tempGO in appleArray) {
             Destroy(tempGO);
@@ -43,9 +47,7 @@ public class ApplePicker : MonoBehaviour
         basketList.RemoveAt( basketIndex );
         Destroy(basketGo);
 
-        if(basketList.Count == 0){
-            SceneManager.LoadScene("_Scene_0");
-        }
+        FindObjectOfType<RoundManager>().UpdateRound(basketList.Count);
     }
 
 }

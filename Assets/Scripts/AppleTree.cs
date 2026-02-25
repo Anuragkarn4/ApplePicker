@@ -7,6 +7,9 @@ public class AppleTree : MonoBehaviour
     [Header("Inscribed")]
     public GameObject applePrefab;
 
+    public GameObject branchPrefab;
+    public float branchChance = 0.1f; // 10% chance
+
     public float speed = 1f;
 
     public float edgeDist = 10f;
@@ -14,6 +17,8 @@ public class AppleTree : MonoBehaviour
     public float flipChance = 0.1f;
 
     public float appleDropDelay = 1f;
+
+    public bool gameOver = false;
     
     // Start is called before the first frame update
     void Start(){
@@ -21,11 +26,31 @@ public class AppleTree : MonoBehaviour
     }
 
     void DropApple() {
-        GameObject apple = Instantiate<GameObject>(applePrefab );
-        apple.transform.position = transform.position;
+        if (gameOver) return; 
+        
+        GameObject prefabToSpawn;
+
+        float chance = Random.value; // 0.0 to 1.0
+
+        if (chance < branchChance)
+        {
+            prefabToSpawn = branchPrefab;  // spawn branch (bad object)
+        }
+        else
+        {
+            prefabToSpawn = applePrefab;   // spawn normal apple
+        }
+
+       if (prefabToSpawn != null)
+        {
+            GameObject obj = Instantiate(prefabToSpawn);
+            obj.transform.position = transform.position;
+        }
+
+        // schedule next drop
         Invoke("DropApple", appleDropDelay);
-    } 
-    
+    }
+
 
     // Update is called once per frame
     void Update()

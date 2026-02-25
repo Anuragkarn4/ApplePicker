@@ -4,40 +4,42 @@ using UnityEngine;
 
 public class Basket : MonoBehaviour
 {
-    public ScoreCounter scoreCounter;
-    // Start is called before the first frame update
+    public ScoreCounter scoreCounter; // reference to your score UI
+
     void Start()
     {
-        GameObject scoreGO = GameObject.Find("ScoreCounter" );
+        GameObject scoreGO = GameObject.Find("ScoreCounter");
         scoreCounter = scoreGO.GetComponent<ScoreCounter>();
-
-
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Vector3 mousePos2D =Input.mousePosition;
-
+        // follow mouse X position
+        Vector3 mousePos2D = Input.mousePosition;
         mousePos2D.z = -Camera.main.transform.position.z;
 
         Vector3 mousePos3D = Camera.main.ScreenToWorldPoint(mousePos2D);
-        
-        Vector3 pos = this.transform.position;
-
+        Vector3 pos = transform.position;
         pos.x = mousePos3D.x;
-
-        this.transform.position = pos;        
-
+        transform.position = pos;
     }
 
-    void OnCollisionEnter(Collision coll) {
+    void OnCollisionEnter(Collision coll)
+    {
         GameObject collidedWith = coll.gameObject;
 
-        if (collidedWith.CompareTag("Apple")) {
-            Destroy(collidedWith); // or add score
-
+        if (collidedWith.CompareTag("Apple"))
+        {
+            Destroy(collidedWith);
             scoreCounter.score += 100;
+            HighScore.TRY_SET_HIGH_SCORE(scoreCounter.score);
+        }
+        else if (collidedWith.CompareTag("Branch"))
+        {
+            Destroy(collidedWith);
+
+            // Branch caught → Game Over
+            FindObjectOfType<RoundManager>().UpdateRound(0);
         }
     }
 }

@@ -8,7 +8,7 @@ public class AppleTree : MonoBehaviour
     public GameObject applePrefab;
 
     public GameObject branchPrefab;
-    public float branchChance = 0.1f; // 10% chance
+    public float branchChance = 0.3f; // 10% chance
 
     public float speed = 1f;
 
@@ -17,6 +17,7 @@ public class AppleTree : MonoBehaviour
     public float flipChance = 0.1f;
 
     public float appleDropDelay = 1f;
+    
 
     public bool gameOver = false;
     
@@ -25,29 +26,25 @@ public class AppleTree : MonoBehaviour
         Invoke("DropApple", 2f);
     }
 
-    void DropApple() {
-        if (gameOver) return; 
-        
+    void DropApple()
+    {
+        if (gameOver) return;
+
         GameObject prefabToSpawn;
 
-        float chance = Random.value; // 0.0 to 1.0
+        float chance = Random.value;
 
         if (chance < branchChance)
-        {
-            prefabToSpawn = branchPrefab;  // spawn branch (bad object)
-        }
+            prefabToSpawn = branchPrefab;
         else
-        {
-            prefabToSpawn = applePrefab;   // spawn normal apple
-        }
+            prefabToSpawn = applePrefab;
 
-       if (prefabToSpawn != null)
+        if (prefabToSpawn != null)
         {
             GameObject obj = Instantiate(prefabToSpawn);
             obj.transform.position = transform.position;
         }
 
-        // schedule next drop
         Invoke("DropApple", appleDropDelay);
     }
 
@@ -78,4 +75,5 @@ public class AppleTree : MonoBehaviour
             speed *= - 1;
         }
     }
+
 }
